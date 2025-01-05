@@ -10,7 +10,7 @@ export const Router: React.FC = memo(() => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="cards">
-        <Route index element={<Page404 />} />
+        <Route index element={<BusinessCard />} />
         <Route path=":id" element={<BusinessCard />} />
         <Route path="register" element={<Register />} />
       </Route>
