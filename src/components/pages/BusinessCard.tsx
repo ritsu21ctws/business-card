@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Card, Center, Icon, Link, Spinner } from '@chakra-ui/react';
 import { DataListItem, DataListRoot } from '@/components/ui/data-list';
+import { Prose } from '@/components/ui/prose';
 import { FaGithub } from 'react-icons/fa';
 import { SiQiita } from 'react-icons/si';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -45,7 +46,7 @@ export const BusinessCard: React.FC = memo(() => {
               </Card.Header>
               <Card.Body gap="4">
                 <DataListRoot size="lg" variant="bold">
-                  <DataListItem label="自己紹介" value={user?.description} />
+                  <DataListItem label="自己紹介" value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>} />
                 </DataListRoot>
                 <DataListRoot size="lg" variant="bold">
                   <DataListItem label="好きな技術" value={user?.user_skill.map((value: Skills) => value.skills.name).join(', ')} />
