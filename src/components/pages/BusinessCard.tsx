@@ -1,5 +1,10 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Card, Center, Icon, Link, Spinner } from '@chakra-ui/react';
+import { DataListItem, DataListRoot } from '@/components/ui/data-list';
+import { FaGithub } from 'react-icons/fa';
+import { SiQiita } from 'react-icons/si';
+import { FaXTwitter } from 'react-icons/fa6';
 import { User } from '@/domain/user';
 import { Skills } from '@/domain/skills';
 import { fetchUser } from '@/utils/supabaseFunctions';
@@ -28,36 +33,55 @@ export const BusinessCard: React.FC = memo(() => {
   return (
     <>
       {isLoading ? (
-        <p>ローディング中</p>
+        <Center h="100vh">
+          <Spinner data-testid="loading" />
+        </Center>
       ) : (
         <div>
-          <p>{`名前：${user?.name}`}</p>
-          <p>{`自己紹介：${user?.description}`}</p>
-          <p>
-            {`スキル：`}
-            {user?.user_skill.map((value: Skills) => value.skills.name).join(', ')}
-          </p>
-          <p>
-            {user?.github_url && (
-              <a href={`${user?.github_url}`} target="_blank">
-                GitHub
-              </a>
-            )}
-          </p>
-          <p>
-            {user?.qiita_url && (
-              <a href={`${user?.qiita_url}`} target="_blank">
-                Qiita
-              </a>
-            )}
-          </p>
-          <p>
-            {user?.x_url && (
-              <a href={`${user?.x_url}`} target="_blank">
-                X
-              </a>
-            )}
-          </p>
+          <Center mt="10">
+            <Card.Root width="320px" variant="elevated">
+              <Card.Header>
+                <Card.Title>{user?.name}</Card.Title>
+              </Card.Header>
+              <Card.Body gap="4">
+                <DataListRoot size="lg" variant="bold">
+                  <DataListItem label="自己紹介" value={user?.description} />
+                </DataListRoot>
+                <DataListRoot size="lg" variant="bold">
+                  <DataListItem label="好きな技術" value={user?.user_skill.map((value: Skills) => value.skills.name).join(', ')} />
+                </DataListRoot>
+              </Card.Body>
+              <Card.Footer justifyContent="space-between">
+                <p>
+                  {user?.github_url && (
+                    <Link href={user?.github_url} outline="none" target="_blank">
+                      <Icon fontSize="30px">
+                        <FaGithub />
+                      </Icon>
+                    </Link>
+                  )}
+                </p>
+                <p>
+                  {user?.qiita_url && (
+                    <Link href={user?.qiita_url} outline="none" target="_blank">
+                      <Icon fontSize="30px">
+                        <SiQiita />
+                      </Icon>
+                    </Link>
+                  )}
+                </p>
+                <p>
+                  {user?.x_url && (
+                    <Link href={user?.x_url} outline="none" target="_blank">
+                      <Icon fontSize="30px">
+                        <FaXTwitter />
+                      </Icon>
+                    </Link>
+                  )}
+                </p>
+              </Card.Footer>
+            </Card.Root>
+          </Center>
         </div>
       )}
     </>
