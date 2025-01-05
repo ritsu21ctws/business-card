@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { User } from '@/domain/User';
-import { Skills } from '@/domain/Skills';
+import { User } from '@/domain/user';
+import { Skills } from '@/domain/skills';
 import { fetchUser } from '@/utils/supabaseFunctions';
 
 export const BusinessCard: React.FC = memo(() => {
@@ -37,9 +37,27 @@ export const BusinessCard: React.FC = memo(() => {
             {`スキル：`}
             {user?.user_skill.map((value: Skills) => value.skills.name).join(', ')}
           </p>
-          <p>{`GitHub：${user?.github_id ?? ''}`}</p>
-          <p>{`Qiita：${user?.qiita_id ?? ''}`}</p>
-          <p>{`X：${user?.x_id ?? ''}`}</p>
+          <p>
+            {user?.github_url && (
+              <a href={`${user?.github_url}`} target="_blank">
+                GitHub
+              </a>
+            )}
+          </p>
+          <p>
+            {user?.qiita_url && (
+              <a href={`${user?.qiita_url}`} target="_blank">
+                Qiita
+              </a>
+            )}
+          </p>
+          <p>
+            {user?.x_url && (
+              <a href={`${user?.x_url}`} target="_blank">
+                X
+              </a>
+            )}
+          </p>
         </div>
       )}
     </>
