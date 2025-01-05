@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Card, Center, Icon, Link, Spinner } from '@chakra-ui/react';
+import { Card, Center, Link, Spinner } from '@chakra-ui/react';
 import { DataListItem, DataListRoot } from '@/components/ui/data-list';
 import { Prose } from '@/components/ui/prose';
 import { FaGithub } from 'react-icons/fa';
@@ -55,28 +55,22 @@ export const BusinessCard: React.FC = memo(() => {
               <Card.Footer justifyContent="space-between">
                 <p>
                   {user?.github_url && (
-                    <Link href={user?.github_url} outline="none" target="_blank">
-                      <Icon fontSize="30px">
-                        <FaGithub />
-                      </Icon>
+                    <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
+                      <FaGithub />
                     </Link>
                   )}
                 </p>
                 <p>
                   {user?.qiita_url && (
-                    <Link href={user?.qiita_url} outline="none" target="_blank">
-                      <Icon fontSize="30px">
-                        <SiQiita />
-                      </Icon>
+                    <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
+                      <SiQiita />
                     </Link>
                   )}
                 </p>
                 <p>
                   {user?.x_url && (
-                    <Link href={user?.x_url} outline="none" target="_blank">
-                      <Icon fontSize="30px">
-                        <FaXTwitter />
-                      </Icon>
+                    <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
+                      <FaXTwitter />
                     </Link>
                   )}
                 </p>
