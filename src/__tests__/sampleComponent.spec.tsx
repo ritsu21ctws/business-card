@@ -1,15 +1,18 @@
-import App from "../App";
-import { render, screen } from "@testing-library/react";
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+import App from '../App';
+import { render, screen } from '@testing-library/react';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router';
 
-describe("App", () => {
-  test("タイトルがあること", async () => {
+describe('App', () => {
+  test('タイトルがあること', async () => {
     render(
-      <ChakraProvider value={defaultSystem}>
-        <App />
-      </ChakraProvider>,
+      <BrowserRouter>
+        <ChakraProvider value={defaultSystem}>
+          <App />
+        </ChakraProvider>
+      </BrowserRouter>
     );
-    const title = screen.getByTestId("title");
+    const title = screen.getByTestId('title');
     expect(title).toBeInTheDocument();
   });
 });
