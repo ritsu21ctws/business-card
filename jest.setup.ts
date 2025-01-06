@@ -1,5 +1,5 @@
-import "@testing-library/jest-dom";
-import * as dotenv from "dotenv";
+import '@testing-library/jest-dom';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -10,3 +10,5 @@ if (!global.structuredClone) {
     return JSON.parse(JSON.stringify(objectToClone));
   };
 }
+
+global.TextEncoder = require('util').TextEncoder;
