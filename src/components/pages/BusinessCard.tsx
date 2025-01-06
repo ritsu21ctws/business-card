@@ -39,8 +39,8 @@ export const BusinessCard: React.FC = memo(() => {
         </Center>
       ) : (
         <div>
-          <Center mt="10">
-            <Card.Root width="320px" variant="elevated">
+          <Center my="5">
+            <Card.Root width="340px" variant="elevated">
               <Card.Header>
                 <Card.Title>{user?.name}</Card.Title>
               </Card.Header>
