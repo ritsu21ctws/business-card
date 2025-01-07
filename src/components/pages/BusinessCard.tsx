@@ -7,7 +7,6 @@ import { FaGithub } from 'react-icons/fa';
 import { SiQiita } from 'react-icons/si';
 import { FaXTwitter } from 'react-icons/fa6';
 import { User } from '@/domain/user';
-import { Skills } from '@/domain/skills';
 import { fetchUser } from '@/utils/supabaseFunctions';
 
 export const BusinessCard: React.FC = memo(() => {
@@ -24,6 +23,7 @@ export const BusinessCard: React.FC = memo(() => {
     fetchUser(id)
       .then((data) => {
         setUser(data);
+        console.log(data);
         setIsLoading(false);
       })
       .catch(() => {
@@ -49,31 +49,25 @@ export const BusinessCard: React.FC = memo(() => {
                   <DataListItem label="自己紹介" value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>} />
                 </DataListRoot>
                 <DataListRoot size="lg" variant="bold">
-                  <DataListItem label="好きな技術" value={user?.user_skill.map((value: Skills) => value.skills.name).join(', ')} />
+                  <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} />
                 </DataListRoot>
               </Card.Body>
               <Card.Footer justifyContent="space-between">
-                <p>
-                  {user?.github_url && (
-                    <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
-                      <FaGithub />
-                    </Link>
-                  )}
-                </p>
-                <p>
-                  {user?.qiita_url && (
-                    <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
-                      <SiQiita />
-                    </Link>
-                  )}
-                </p>
-                <p>
-                  {user?.x_url && (
-                    <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
-                      <FaXTwitter />
-                    </Link>
-                  )}
-                </p>
+                {user?.github_url && (
+                  <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
+                    <FaGithub />
+                  </Link>
+                )}
+                {user?.qiita_url && (
+                  <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
+                    <SiQiita />
+                  </Link>
+                )}
+                {user?.x_url && (
+                  <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
+                    <FaXTwitter />
+                  </Link>
+                )}
               </Card.Footer>
             </Card.Root>
           </Center>
