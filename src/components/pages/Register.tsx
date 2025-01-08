@@ -1,9 +1,10 @@
-import React, { memo } from 'react';
-import { Button, Card, Center, createListCollection, Heading, Textarea, Input, Stack } from '@chakra-ui/react';
+import React, { memo, useEffect, useState } from 'react';
+import { Button, Card, Center, createListCollection, Heading, Textarea, Input, Stack, ListCollection } from '@chakra-ui/react';
 import { Field } from '@/components/ui/field';
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select';
 import { Controller, useForm } from 'react-hook-form';
 import { FormData } from '@/domain/formData';
+import { fetchSkills } from '@/utils/supabaseFunctions';
 
 export const Register: React.FC = memo(() => {
   const {
@@ -12,13 +13,17 @@ export const Register: React.FC = memo(() => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const technologies = createListCollection({
-    items: [
-      { label: 'React', value: 'react' },
-      { label: 'TypeScript', value: 'typescript' },
-      { label: 'GitHub', value: 'github' },
-    ],
-  });
+  const [skills, setSkills] = useState<ListCollection<{ label: string; value: string }> | null>(null);
+
+  useEffect(() => {
+    fetchSkills()
+      .then((data) => {
+        setSkills(createListCollection({ items: data.map((skill) => ({ label: skill.name, value: skill.id.toString() })) }));
+      })
+      .catch(() => {
+        return;
+      });
+  }, []);
 
   const onSubmit = handleSubmit((data: FormData) => {
     console.log(data);
@@ -80,15 +85,15 @@ export const Register: React.FC = memo(() => {
                           onValueChange={({ value }) => field.onChange(value)}
                           onInteractOutside={() => field.onBlur()}
                           multiple
-                          collection={technologies}
+                          collection={skills || createListCollection({ items: [] })}
                         >
                           <SelectTrigger>
                             <SelectValueText placeholder="Select Option" />
                           </SelectTrigger>
                           <SelectContent>
-                            {technologies.items.map((technology) => (
-                              <SelectItem item={technology} key={technology.value}>
-                                {technology.label}
+                            {skills?.items.map((skill) => (
+                              <SelectItem item={skill} key={skill.value}>
+                                {skill.label}
                               </SelectItem>
                             ))}
                           </SelectContent>
