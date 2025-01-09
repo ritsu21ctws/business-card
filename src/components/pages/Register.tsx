@@ -4,7 +4,8 @@ import { Field } from '@/components/ui/field';
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select';
 import { Controller, useForm } from 'react-hook-form';
 import { FormData } from '@/domain/formData';
-import { fetchSkills } from '@/utils/supabaseFunctions';
+import { fetchSkills, insertUser } from '@/utils/supabaseFunctions';
+import { useMessage } from '@/hooks/useMessage';
 
 export const Register: React.FC = memo(() => {
   const {
@@ -12,6 +13,7 @@ export const Register: React.FC = memo(() => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  const { showMessage } = useMessage();
 
   const [skills, setSkills] = useState<ListCollection<{ label: string; value: string }> | null>(null);
 
@@ -21,12 +23,21 @@ export const Register: React.FC = memo(() => {
         setSkills(createListCollection({ items: data.map((skill) => ({ label: skill.name, value: skill.id.toString() })) }));
       })
       .catch(() => {
-        return;
+        showMessage({ title: 'データの取得に失敗しました', type: 'error' });
       });
   }, []);
 
   const onSubmit = handleSubmit((data: FormData) => {
     console.log(data);
+    insertUser(data)
+      .then((user) => {
+        console.log(user);
+        showMessage({ title: '登録が完了しました', type: 'success' });
+      })
+      .catch((error) => {
+        console.error(error);
+        showMessage({ title: '登録に失敗しました', type: 'error' });
+      });
   });
 
   return (

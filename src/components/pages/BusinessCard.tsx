@@ -8,9 +8,11 @@ import { SiQiita } from 'react-icons/si';
 import { FaXTwitter } from 'react-icons/fa6';
 import { User } from '@/domain/user';
 import { fetchUser } from '@/utils/supabaseFunctions';
+import { useMessage } from '@/hooks/useMessage';
 
 export const BusinessCard: React.FC = memo(() => {
   const { id } = useParams<{ id: string }>();
+  const { showMessage } = useMessage();
 
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +29,7 @@ export const BusinessCard: React.FC = memo(() => {
         setIsLoading(false);
       })
       .catch(() => {
-        return;
+        showMessage({ title: 'データの取得に失敗しました', type: 'error' });
       });
   }, []);
 

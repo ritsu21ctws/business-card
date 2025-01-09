@@ -19,3 +19,20 @@ export const fetchSkills = async (): Promise<Array<Skill>> => {
 
   return data;
 };
+
+export const insertUser = async (formData: FormData): Promise<User> => {
+  const { user_id, name, description, skills, github_id, qiita_id, x_id } = formData;
+  const { data, error } = await supabase.rpc('insert_user', {
+    user_id,
+    name,
+    description,
+    github_id,
+    qiita_id,
+    x_id,
+    skills: skills.map(Number),
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};
