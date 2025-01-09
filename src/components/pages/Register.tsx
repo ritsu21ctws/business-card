@@ -1,11 +1,12 @@
 import React, { memo, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Controller, useForm } from 'react-hook-form';
 import { Button, Card, Center, createListCollection, Heading, Textarea, Input, Stack, ListCollection } from '@chakra-ui/react';
 import { Field } from '@/components/ui/field';
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger, SelectValueText } from '@/components/ui/select';
-import { Controller, useForm } from 'react-hook-form';
 import { FormData } from '@/domain/formData';
-import { fetchSkills, insertUser } from '@/utils/supabaseFunctions';
 import { useMessage } from '@/hooks/useMessage';
+import { fetchSkills, insertUser } from '@/utils/supabaseFunctions';
 
 export const Register: React.FC = memo(() => {
   const {
@@ -13,6 +14,7 @@ export const Register: React.FC = memo(() => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  const navigate = useNavigate();
   const { showMessage } = useMessage();
 
   const [skills, setSkills] = useState<ListCollection<{ label: string; value: string }> | null>(null);
@@ -28,14 +30,12 @@ export const Register: React.FC = memo(() => {
   }, []);
 
   const onSubmit = handleSubmit((data: FormData) => {
-    console.log(data);
     insertUser(data)
-      .then((user) => {
-        console.log(user);
+      .then(() => {
         showMessage({ title: '登録が完了しました', type: 'success' });
+        navigate('/');
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         showMessage({ title: '登録に失敗しました', type: 'error' });
       });
   });
