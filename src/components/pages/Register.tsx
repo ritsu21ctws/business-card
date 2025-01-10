@@ -13,7 +13,13 @@ export const Register: React.FC = memo(() => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    defaultValues: {
+      github_id: '',
+      qiita_id: '',
+      x_id: '',
+    },
+  });
   const navigate = useNavigate();
   const { showMessage } = useMessage();
 
@@ -30,7 +36,13 @@ export const Register: React.FC = memo(() => {
   }, []);
 
   const onSubmit = handleSubmit((data: FormData) => {
-    insertUser(data)
+    const transformedData = {
+      ...data,
+      github_id: data.github_id || null,
+      qiita_id: data.qiita_id || null,
+      x_id: data.x_id || null,
+    };
+    insertUser(transformedData)
       .then(() => {
         showMessage({ title: '登録が完了しました', type: 'success' });
         navigate('/');
@@ -113,13 +125,17 @@ export const Register: React.FC = memo(() => {
                     />
                   </Field>
                   <Field label="GitHub ID">
-                    <Controller name="github_id" control={control} render={({ field }) => <Input {...field} />} />
+                    <Controller name="github_id" control={control} render={({ field }) => <Input {...field} value={field.value || ''} />} />
                   </Field>
                   <Field label="Qiita ID">
-                    <Controller name="qiita_id" control={control} render={({ field }) => <Input {...field} />} />
+                    <Controller name="qiita_id" control={control} render={({ field }) => <Input {...field} value={field.value || ''} />} />
                   </Field>
                   <Field label="X ID">
-                    <Controller name="x_id" control={control} render={({ field }) => <Input {...field} />} />
+                    <Controller
+                      name="x_id"
+                      control={control}
+                      render={({ field }) => <Input {...field} value={field.value || ''} placeholder="@は不要" />}
+                    />
                   </Field>
                   *は必須項目です
                 </Stack>
