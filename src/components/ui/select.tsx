@@ -1,6 +1,6 @@
 'use client';
 
-import type { CollectionItem, SelectItemProps } from '@chakra-ui/react';
+import type { CollectionItem, SelectItemProps, SelectClearTriggerProps } from '@chakra-ui/react';
 import { Select as ChakraSelect, Portal } from '@chakra-ui/react';
 import { CloseButton } from './close-button';
 import * as React from 'react';
@@ -13,7 +13,7 @@ interface SelectTriggerProps extends ChakraSelect.ControlProps {
 export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(function SelectTrigger(props, ref) {
   const { children, clearable, ...rest } = props;
 
-  const chakraSelectTriggerProps: = {
+  const chakraSelectTriggerProps = {
     children,
   };
 
@@ -29,11 +29,12 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
 });
 
 const SelectClearTrigger = React.forwardRef<HTMLButtonElement, ChakraSelect.ClearTriggerProps>(function SelectClearTrigger(props, ref) {
-  return (
-    <ChakraSelect.ClearTrigger asChild {...props} ref={ref}>
-      <CloseButton size="xs" variant="plain" focusVisibleRing="inside" focusRingWidth="2px" pointerEvents="auto" />
-    </ChakraSelect.ClearTrigger>
-  );
+  const chakraSelectClearTriggerProps: SelectClearTriggerProps = {
+    asChild: true,
+    children: <CloseButton size="xs" variant="plain" focusVisibleRing="inside" focusRingWidth="2px" pointerEvents="auto" />,
+  };
+
+  return <ChakraSelect.ClearTrigger {...props} ref={ref} {...chakraSelectClearTriggerProps} />;
 });
 
 interface SelectContentProps extends ChakraSelect.ContentProps {
