@@ -12,9 +12,14 @@ interface SelectTriggerProps extends ChakraSelect.ControlProps {
 
 export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(function SelectTrigger(props, ref) {
   const { children, clearable, ...rest } = props;
+
+  const chakraSelectTriggerProps: = {
+    children,
+  };
+
   return (
     <ChakraSelect.Control {...rest}>
-      <ChakraSelect.Trigger ref={ref}>{children}</ChakraSelect.Trigger>
+      <ChakraSelect.Trigger ref={ref} {...chakraSelectTriggerProps} />
       <ChakraSelect.IndicatorGroup>
         {clearable && <SelectClearTrigger />}
         <ChakraSelect.Indicator />
