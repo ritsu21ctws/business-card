@@ -83,8 +83,8 @@ interface SelectValueTextProps extends Omit<ChakraSelect.ValueTextProps, 'childr
 
 export const SelectValueText = React.forwardRef<HTMLSpanElement, SelectValueTextProps>(function SelectValueText(props, ref) {
   const { children, ...rest } = props;
-  return (
-    <ChakraSelect.ValueText {...rest} ref={ref}>
+  const chakraSelectValueTextProps = {
+    children: (
       <ChakraSelect.Context>
         {(select) => {
           const items = select.selectedItems;
@@ -94,8 +94,9 @@ export const SelectValueText = React.forwardRef<HTMLSpanElement, SelectValueText
           return `${items.length} selected`;
         }}
       </ChakraSelect.Context>
-    </ChakraSelect.ValueText>
-  );
+    ),
+  };
+  return <ChakraSelect.ValueText {...rest} ref={ref} {...chakraSelectValueTextProps} />;
 });
 
 export const SelectRoot = React.forwardRef<HTMLDivElement, ChakraSelect.RootProps>(function SelectRoot(props, ref) {
