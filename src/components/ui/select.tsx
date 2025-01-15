@@ -121,12 +121,15 @@ interface SelectItemGroupProps extends ChakraSelect.ItemGroupProps {
 
 export const SelectItemGroup = React.forwardRef<HTMLDivElement, SelectItemGroupProps>(function SelectItemGroup(props, ref) {
   const { children, label, ...rest } = props;
-  return (
-    <ChakraSelect.ItemGroup {...rest} ref={ref}>
-      <ChakraSelect.ItemGroupLabel>{label}</ChakraSelect.ItemGroupLabel>
-      {children}
-    </ChakraSelect.ItemGroup>
-  );
+  const chakraSelectItemGroupProps = {
+    children: (
+      <>
+        <ChakraSelect.ItemGroupLabel>{label}</ChakraSelect.ItemGroupLabel>
+        {children}
+      </>
+    ),
+  };
+  return <ChakraSelect.ItemGroup {...rest} ref={ref} {...chakraSelectItemGroupProps} />;
 });
 
 export const SelectLabel = ChakraSelect.Label;
