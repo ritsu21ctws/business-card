@@ -1,11 +1,11 @@
-import { Skills } from './skills';
+import { Skill } from './skill';
 
 export class User {
   constructor(
     public user_id: string,
     public name: string,
     public description: string,
-    public user_skill: Array<Skills>,
+    public skills: Array<Skill>,
     public github_id: string,
     public qiita_id: string,
     public x_id: string,
@@ -19,7 +19,7 @@ export class User {
     user_id: string,
     name: string,
     description: string,
-    user_skill: Array<Skills>,
+    skills: Array<Skill>,
     github_id: string,
     qiita_id: string,
     x_id: string,
@@ -29,7 +29,7 @@ export class User {
       user_id,
       name,
       description,
-      user_skill,
+      skills,
       github_id,
       qiita_id,
       x_id,

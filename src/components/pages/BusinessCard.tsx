@@ -7,11 +7,12 @@ import { FaGithub } from 'react-icons/fa';
 import { SiQiita } from 'react-icons/si';
 import { FaXTwitter } from 'react-icons/fa6';
 import { User } from '@/domain/user';
-import { Skills } from '@/domain/skills';
 import { fetchUser } from '@/utils/supabaseFunctions';
+import { useMessage } from '@/hooks/useMessage';
 
 export const BusinessCard: React.FC = memo(() => {
   const { id } = useParams<{ id: string }>();
+  const { showMessage } = useMessage();
 
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,10 +25,11 @@ export const BusinessCard: React.FC = memo(() => {
     fetchUser(id)
       .then((data) => {
         setUser(data);
+        console.log(data);
         setIsLoading(false);
       })
       .catch(() => {
-        return;
+        showMessage({ title: 'データの取得に失敗しました', type: 'error' });
       });
   }, []);
 
@@ -39,41 +41,35 @@ export const BusinessCard: React.FC = memo(() => {
         </Center>
       ) : (
         <div>
-          <Center mt="10">
-            <Card.Root width="320px" variant="elevated">
+          <Center my="5">
+            <Card.Root width="340px" variant="elevated">
               <Card.Header>
-                <Card.Title>{user?.name}</Card.Title>
+                <Card.Title fontSize={32}>{user?.name}</Card.Title>
               </Card.Header>
               <Card.Body gap="4">
                 <DataListRoot size="lg" variant="bold">
                   <DataListItem label="自己紹介" value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>} />
                 </DataListRoot>
                 <DataListRoot size="lg" variant="bold">
-                  <DataListItem label="好きな技術" value={user?.user_skill.map((value: Skills) => value.skills.name).join(', ')} />
+                  <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} />
                 </DataListRoot>
               </Card.Body>
               <Card.Footer justifyContent="space-between">
-                <p>
-                  {user?.github_url && (
-                    <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
-                      <FaGithub />
-                    </Link>
-                  )}
-                </p>
-                <p>
-                  {user?.qiita_url && (
-                    <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
-                      <SiQiita />
-                    </Link>
-                  )}
-                </p>
-                <p>
-                  {user?.x_url && (
-                    <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
-                      <FaXTwitter />
-                    </Link>
-                  )}
-                </p>
+                {user?.github_url && (
+                  <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
+                    <FaGithub />
+                  </Link>
+                )}
+                {user?.qiita_url && (
+                  <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
+                    <SiQiita />
+                  </Link>
+                )}
+                {user?.x_url && (
+                  <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
+                    <FaXTwitter />
+                  </Link>
+                )}
               </Card.Footer>
             </Card.Root>
           </Center>
