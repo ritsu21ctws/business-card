@@ -44,7 +44,7 @@ export const BusinessCard: React.FC = memo(() => {
           <Center my="5">
             <Card.Root width="340px" variant="elevated">
               <Card.Header>
-                <Card.Title>{user?.name}</Card.Title>
+                <Card.Title fontSize={32}>{user?.name}</Card.Title>
               </Card.Header>
               <Card.Body gap="4">
                 <DataListRoot size="lg" variant="bold">
