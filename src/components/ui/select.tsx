@@ -71,10 +71,9 @@ export const SelectItem = React.forwardRef<HTMLDivElement, NewSelectItemProps>(f
       </>
     ),
     item,
-    key: item.value,
   };
 
-  return <ChakraSelect.Item {...rest} ref={ref} {...chakraSelectItemProps} />;
+  return <ChakraSelect.Item key={item.value} {...rest} ref={ref} {...chakraSelectItemProps} />;
 });
 
 interface SelectValueTextProps extends Omit<ChakraSelect.ValueTextProps, 'children'> {
