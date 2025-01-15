@@ -15,6 +15,9 @@ export const Register: React.FC = memo(() => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
+      user_id: '',
+      name: '',
+      description: '',
       github_id: '',
       qiita_id: '',
       x_id: '',
