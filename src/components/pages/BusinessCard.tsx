@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { Card, Center, Link, Spinner } from '@chakra-ui/react';
+import { useNavigate, useParams } from 'react-router';
+import { Button, Card, Center, Link, Spinner, Stack } from '@chakra-ui/react';
 import { DataListItem, DataListRoot } from '@/components/ui/data-list';
 import { Prose } from '@/components/ui/prose';
 import { FaGithub } from 'react-icons/fa';
@@ -11,6 +11,8 @@ import { fetchUser } from '@/utils/supabaseFunctions';
 import { useMessage } from '@/hooks/useMessage';
 
 export const BusinessCard: React.FC = memo(() => {
+  const navigate = useNavigate();
+
   const { id } = useParams<{ id: string }>();
   const { showMessage } = useMessage();
 
@@ -25,13 +27,16 @@ export const BusinessCard: React.FC = memo(() => {
     fetchUser(id)
       .then((data) => {
         setUser(data);
-        console.log(data);
         setIsLoading(false);
       })
       .catch(() => {
         showMessage({ title: 'データの取得に失敗しました', type: 'error' });
       });
   }, []);
+
+  const onClickGoBackHome = () => {
+    navigate('/');
+  };
 
   return (
     <>
@@ -42,36 +47,41 @@ export const BusinessCard: React.FC = memo(() => {
       ) : (
         <div>
           <Center my="5">
-            <Card.Root width="340px" variant="elevated">
-              <Card.Header>
-                <Card.Title fontSize={32}>{user?.name}</Card.Title>
-              </Card.Header>
-              <Card.Body gap="4">
-                <DataListRoot size="lg" variant="bold">
-                  <DataListItem label="自己紹介" value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>} />
-                </DataListRoot>
-                <DataListRoot size="lg" variant="bold">
-                  <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} />
-                </DataListRoot>
-              </Card.Body>
-              <Card.Footer justifyContent="space-between">
-                {user?.github_url && (
-                  <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
-                    <FaGithub />
-                  </Link>
-                )}
-                {user?.qiita_url && (
-                  <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
-                    <SiQiita />
-                  </Link>
-                )}
-                {user?.x_url && (
-                  <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
-                    <FaXTwitter />
-                  </Link>
-                )}
-              </Card.Footer>
-            </Card.Root>
+            <Stack gap="5">
+              <Card.Root width="340px" variant="elevated">
+                <Card.Header>
+                  <Card.Title fontSize={32}>{user?.name}</Card.Title>
+                </Card.Header>
+                <Card.Body gap="4">
+                  <DataListRoot size="lg" variant="bold">
+                    <DataListItem label="自己紹介" value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>} />
+                  </DataListRoot>
+                  <DataListRoot size="lg" variant="bold">
+                    <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} />
+                  </DataListRoot>
+                </Card.Body>
+                <Card.Footer justifyContent="space-between">
+                  {user?.github_url && (
+                    <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
+                      <FaGithub />
+                    </Link>
+                  )}
+                  {user?.qiita_url && (
+                    <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
+                      <SiQiita />
+                    </Link>
+                  )}
+                  {user?.x_url && (
+                    <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
+                      <FaXTwitter />
+                    </Link>
+                  )}
+                </Card.Footer>
+              </Card.Root>
+              <Button variant="solid" type="submit" colorPalette="cyan" w="full" onClick={onClickGoBackHome}>
+                戻る
+              </Button>
+            </Stack>
           </Center>
         </div>
       )}

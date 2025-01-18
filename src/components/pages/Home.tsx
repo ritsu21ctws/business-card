@@ -41,7 +41,7 @@ export const Home: React.FC = memo(() => {
               </Field>
             </Card.Body>
             <Card.Footer>
-              <Button variant="solid" type="submit" aria-label="Submit" colorPalette="cyan" w="full">
+              <Button variant="solid" type="submit" colorPalette="cyan" w="full">
                 名刺をみる
               </Button>
             </Card.Footer>
