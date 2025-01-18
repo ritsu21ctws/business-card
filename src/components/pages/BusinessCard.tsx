@@ -79,7 +79,7 @@ export const BusinessCard: React.FC = memo(() => {
                   )}
                   {user?.x_url && (
                     <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
-                      <FaXTwitter />
+                      <FaXTwitter data-testid="x-icon" />
                     </Link>
                   )}
                 </Card.Footer>

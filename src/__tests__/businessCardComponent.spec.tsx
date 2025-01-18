@@ -60,13 +60,18 @@ describe('BusinessCard', () => {
     expect(skills).toHaveTextContent('React, GitHub');
   });
 
-  test('GitHubアイコンが表示されていること', async () => {
+  test('GitHubのアイコンが表示されていること', async () => {
     const githubIcon = await screen.findByTestId('github-icon');
     expect(githubIcon).toBeInTheDocument();
   });
 
-  test('Qiitaアイコンが表示されていること', async () => {
+  test('Qiitaのアイコンが表示されていること', async () => {
     const qiitaIcon = await screen.findByTestId('qiita-icon');
     expect(qiitaIcon).toBeInTheDocument();
+  });
+
+  test('Xのアイコンが表示されていること', async () => {
+    const xIcon = await screen.findByTestId('x-icon');
+    expect(xIcon).toBeInTheDocument();
   });
 });
