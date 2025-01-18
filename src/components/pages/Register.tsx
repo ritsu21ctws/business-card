@@ -144,7 +144,7 @@ export const Register: React.FC = memo(() => {
                 </Stack>
               </Card.Body>
               <Card.Footer justifyContent="flex-end">
-                <Button variant="solid" type="submit" aria-label="Submit" colorPalette="cyan" w="full">
+                <Button variant="solid" type="submit" colorPalette="cyan" w="full">
                   登録
                 </Button>
               </Card.Footer>
