@@ -49,4 +49,9 @@ describe('BusinessCard', () => {
     const name = await screen.findByTestId('name');
     expect(name).toHaveTextContent('John Doe');
   });
+
+  test('自己紹介が表示されていること', async () => {
+    const description = await screen.findByTestId('description');
+    expect(description).toHaveTextContent('A passionate software developer.');
+  });
 });
