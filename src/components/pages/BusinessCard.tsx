@@ -63,7 +63,7 @@ export const BusinessCard: React.FC = memo(() => {
                     />
                   </DataListRoot>
                   <DataListRoot size="lg" variant="bold">
-                    <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} />
+                    <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} data-testid="skills" />
                   </DataListRoot>
                 </Card.Body>
                 <Card.Footer justifyContent="space-between">

@@ -54,4 +54,9 @@ describe('BusinessCard', () => {
     const description = await screen.findByTestId('description');
     expect(description).toHaveTextContent('A passionate software developer.');
   });
+
+  test('好きな技術が表示されていること', async () => {
+    const skills = await screen.findByTestId('skills');
+    expect(skills).toHaveTextContent('React, GitHub');
+  });
 });
