@@ -64,4 +64,9 @@ describe('BusinessCard', () => {
     const githubIcon = await screen.findByTestId('github-icon');
     expect(githubIcon).toBeInTheDocument();
   });
+
+  test('Qiitaアイコンが表示されていること', async () => {
+    const qiitaIcon = await screen.findByTestId('qiita-icon');
+    expect(qiitaIcon).toBeInTheDocument();
+  });
 });

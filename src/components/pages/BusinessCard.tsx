@@ -74,7 +74,7 @@ export const BusinessCard: React.FC = memo(() => {
                   )}
                   {user?.qiita_url && (
                     <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
-                      <SiQiita />
+                      <SiQiita data-testid="qiita-icon" />
                     </Link>
                   )}
                   {user?.x_url && (
