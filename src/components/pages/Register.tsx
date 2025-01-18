@@ -143,7 +143,7 @@ export const Register: React.FC = memo(() => {
                   *は必須項目です
                 </Stack>
               </Card.Body>
-              <Card.Footer justifyContent="flex-end">
+              <Card.Footer>
                 <Button variant="solid" type="submit" colorPalette="cyan" w="full">
                   登録
                 </Button>
