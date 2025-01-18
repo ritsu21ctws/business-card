@@ -69,7 +69,7 @@ export const BusinessCard: React.FC = memo(() => {
                 <Card.Footer justifyContent="space-between">
                   {user?.github_url && (
                     <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
-                      <FaGithub />
+                      <FaGithub data-testid="github-icon" />
                     </Link>
                   )}
                   {user?.qiita_url && (

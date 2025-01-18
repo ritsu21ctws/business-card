@@ -59,4 +59,9 @@ describe('BusinessCard', () => {
     const skills = await screen.findByTestId('skills');
     expect(skills).toHaveTextContent('React, GitHub');
   });
+
+  test('GitHubアイコンが表示されていること', async () => {
+    const githubIcon = await screen.findByTestId('github-icon');
+    expect(githubIcon).toBeInTheDocument();
+  });
 });
