@@ -58,8 +58,8 @@ export const Register: React.FC = memo(() => {
   return (
     <>
       <Center my="5">
-        <Stack>
-          <Heading as="h1" mb="2" textAlign="center">
+        <Stack gap="4">
+          <Heading as="h1" textAlign="center">
             名刺新規登録
           </Heading>
           <Card.Root width="340px" variant="elevated">

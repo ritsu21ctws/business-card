@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Card, Center, Heading, Input, Stack } from '@chakra-ui/react';
+import { Button, Card, Center, Heading, Input, Link, Stack } from '@chakra-ui/react';
 import { Field } from '@/components/ui/field';
 
 export const Home: React.FC = memo(() => {
@@ -22,8 +22,8 @@ export const Home: React.FC = memo(() => {
 
   return (
     <Center my="5">
-      <Stack>
-        <Heading as="h1" mb="2" textAlign="center" data-testid="title">
+      <Stack gap="4">
+        <Heading as="h1" textAlign="center" data-testid="title">
           デジタル名詞アプリ
         </Heading>
         <Card.Root width="340px" variant="elevated">
@@ -47,6 +47,9 @@ export const Home: React.FC = memo(() => {
             </Card.Footer>
           </form>
         </Card.Root>
+        <Link justifyContent="center" href="cards/register" outline="none">
+          新規登録はこちら
+        </Link>
       </Stack>
     </Center>
   );
