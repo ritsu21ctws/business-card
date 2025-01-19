@@ -1,16 +1,23 @@
 import App from '../App';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { MemoryRouter } from 'react-router';
 import { User } from '@/domain/user';
 
 const mockFetchUser = jest.fn();
+const mockNavigator = jest.fn();
 
 jest.mock('@/utils/supabaseFunctions', () => {
   return {
     fetchUser: () => mockFetchUser(),
   };
 });
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: () => mockNavigator,
+}));
 
 describe('BusinessCard', () => {
   beforeEach(() => {
@@ -73,5 +80,11 @@ describe('BusinessCard', () => {
   test('Xのアイコンが表示されていること', async () => {
     const xIcon = await screen.findByTestId('x-icon');
     expect(xIcon).toBeInTheDocument();
+  });
+
+  test('戻るボタンをクリックするとHomeページに遷移する', async () => {
+    const backButton = await screen.findByTestId('back-button');
+    await userEvent.click(backButton);
+    expect(mockNavigator).toHaveBeenCalledWith('/');
   });
 });
