@@ -133,4 +133,36 @@ describe('Register', () => {
       expect(mockInsertUser).toHaveBeenCalledTimes(0);
     });
   });
+
+  test('名前がないときにエラーメッセージが表示されること', async () => {
+    // 必須項目の入力
+    await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
+    await userEvent.type(screen.getByTestId('input-description'), '30歳のエンジニアです。');
+    // スキル選択
+    await userEvent.click(
+      screen.getByRole('combobox', {
+        name: '好きな技術 *',
+      })
+    );
+    await userEvent.click(screen.getByText('React'));
+    await userEvent.click(screen.getByText('TypeScript'));
+    // オプション項目の入力
+    await userEvent.type(screen.getByTestId('input-github-id'), 'tanaka_github');
+    await userEvent.type(screen.getByTestId('input-qiita-id'), 'tanaka_qiita');
+    await userEvent.type(screen.getByTestId('input-x-id'), 'tanaka_x');
+    // フォーム送信
+    const registerButton = screen.getByTestId('register-button');
+    await userEvent.click(registerButton);
+
+    // 名前未入力のエラーメッセージが表示されていることを確認
+    await waitFor(() => {
+      const errorMessage = screen.getByText('名前の入力は必須です');
+      expect(errorMessage).toBeInTheDocument();
+    });
+
+    // 登録処理が呼び出されていないことを確認
+    await waitFor(() => {
+      expect(mockInsertUser).toHaveBeenCalledTimes(0);
+    });
+  });
 });
