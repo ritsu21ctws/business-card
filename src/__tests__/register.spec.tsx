@@ -222,4 +222,40 @@ describe('Register', () => {
       expect(mockInsertUser).toHaveBeenCalledTimes(0);
     });
   });
+
+  test('必須項目のみ入力して登録ボタンを押すとHomeページに遷移すること', async () => {
+    // 必須項目の入力
+    await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
+    await userEvent.type(screen.getByTestId('input-name'), '田中太郎');
+    await userEvent.type(screen.getByTestId('input-description'), '30歳のエンジニアです。');
+    // スキル選択
+    await userEvent.click(
+      screen.getByRole('combobox', {
+        name: '好きな技術 *',
+      })
+    );
+    await userEvent.click(screen.getByText('React'));
+    await userEvent.click(screen.getByText('TypeScript'));
+    // フォーム送信
+    const registerButton = screen.getByTestId('register-button');
+    await userEvent.click(registerButton);
+
+    // 登録成功の確認
+    await waitFor(() => {
+      expect(mockInsertUser).toHaveBeenCalledTimes(1);
+    });
+
+    // TOP画面への遷移を確認
+    await waitFor(() => {
+      expect(mockNavigator).toHaveBeenCalledWith('/');
+    });
+
+    // トーストの確認
+    await waitFor(() => {
+      expect(mockShowMessage).toHaveBeenCalledWith({
+        title: '登録が完了しました',
+        type: 'success',
+      });
+    });
+  });
 });
