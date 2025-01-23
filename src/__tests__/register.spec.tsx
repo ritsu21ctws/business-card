@@ -102,7 +102,7 @@ describe('Register', () => {
     });
   });
 
-  test('IDがないときにエラーメッセージが表示されること', async () => {
+  test('IDが未入力状態で登録された場合に、エラーメッセージが表示されること', async () => {
     // 必須項目の入力
     await userEvent.type(screen.getByTestId('input-name'), '田中太郎');
     await userEvent.type(screen.getByTestId('input-description'), '30歳のエンジニアです。');
@@ -134,7 +134,7 @@ describe('Register', () => {
     });
   });
 
-  test('名前がないときにエラーメッセージが表示されること', async () => {
+  test('名前が未入力状態で登録された場合に、エラーメッセージが表示されること', async () => {
     // 必須項目の入力
     await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
     await userEvent.type(screen.getByTestId('input-description'), '30歳のエンジニアです。');
@@ -166,7 +166,7 @@ describe('Register', () => {
     });
   });
 
-  test('自己紹介がないときにエラーメッセージが表示されること', async () => {
+  test('自己紹介が未入力状態で登録された場合に、エラーメッセージが表示されること', async () => {
     // 必須項目の入力
     await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
     await userEvent.type(screen.getByTestId('input-name'), '田中太郎');
@@ -189,6 +189,31 @@ describe('Register', () => {
     // 名前未入力のエラーメッセージが表示されていることを確認
     await waitFor(() => {
       const errorMessage = screen.getByText('自己紹介の入力は必須です');
+      expect(errorMessage).toBeInTheDocument();
+    });
+
+    // 登録処理が呼び出されていないことを確認
+    await waitFor(() => {
+      expect(mockInsertUser).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  test('好きな技術が未入力状態で登録された場合に、エラーメッセージが表示されること', async () => {
+    // 必須項目の入力
+    await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
+    await userEvent.type(screen.getByTestId('input-name'), '田中太郎');
+    await userEvent.type(screen.getByTestId('input-description'), '30歳のエンジニアです。');
+    // オプション項目の入力
+    await userEvent.type(screen.getByTestId('input-github-id'), 'tanaka_github');
+    await userEvent.type(screen.getByTestId('input-qiita-id'), 'tanaka_qiita');
+    await userEvent.type(screen.getByTestId('input-x-id'), 'tanaka_x');
+    // フォーム送信
+    const registerButton = screen.getByTestId('register-button');
+    await userEvent.click(registerButton);
+
+    // 名前未入力のエラーメッセージが表示されていることを確認
+    await waitFor(() => {
+      const errorMessage = screen.getByText('好きな技術の入力は必須です');
       expect(errorMessage).toBeInTheDocument();
     });
 
