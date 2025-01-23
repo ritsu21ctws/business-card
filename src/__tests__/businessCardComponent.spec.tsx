@@ -8,11 +8,9 @@ import { User } from '@/domain/user';
 const mockFetchUser = jest.fn();
 const mockNavigator = jest.fn();
 
-jest.mock('@/utils/supabaseFunctions', () => {
-  return {
-    fetchUser: () => mockFetchUser(),
-  };
-});
+jest.mock('@/utils/supabaseFunctions', () => ({
+  fetchUser: () => mockFetchUser(),
+}));
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
