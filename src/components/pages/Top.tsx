@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button, Card, Center, Heading, Input, Link, Stack } from '@chakra-ui/react';
 import { Field } from '@/components/ui/field';
 
-export const Home: React.FC = memo(() => {
+export const Top: React.FC = memo(() => {
   const {
     control,
     handleSubmit,

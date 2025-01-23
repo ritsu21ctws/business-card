@@ -80,7 +80,7 @@ describe('BusinessCard', () => {
     expect(xIcon).toBeInTheDocument();
   });
 
-  test('戻るボタンをクリックするとHomeページに遷移する', async () => {
+  test('戻るボタンをクリックするとトップページに遷移する', async () => {
     const backButton = await screen.findByTestId('back-button');
     await userEvent.click(backButton);
     expect(mockNavigator).toHaveBeenCalledWith('/');

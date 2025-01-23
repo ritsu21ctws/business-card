@@ -34,7 +34,7 @@ export const BusinessCard: React.FC = memo(() => {
       });
   }, []);
 
-  const onClickGoBackHome = () => {
+  const onClickGoBackTop = () => {
     navigate('/');
   };
 
@@ -84,7 +84,7 @@ export const BusinessCard: React.FC = memo(() => {
                   )}
                 </Card.Footer>
               </Card.Root>
-              <Button variant="solid" type="submit" colorPalette="cyan" w="full" onClick={onClickGoBackHome} data-testid="back-button">
+              <Button variant="solid" type="submit" colorPalette="cyan" w="full" onClick={onClickGoBackTop} data-testid="back-button">
                 戻る
               </Button>
             </Stack>

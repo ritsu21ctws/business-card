@@ -62,7 +62,7 @@ describe('Register', () => {
     expect(title).toBeInTheDocument();
   });
 
-  test('全項目入力して登録ボタンを押すとHomeページに遷移すること', async () => {
+  test('全項目入力して登録ボタンを押すとトップページに遷移すること', async () => {
     // 必須項目の入力
     await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
     await userEvent.type(screen.getByTestId('input-name'), '田中太郎');
@@ -223,7 +223,7 @@ describe('Register', () => {
     });
   });
 
-  test('必須項目のみ入力して登録ボタンを押すとHomeページに遷移すること', async () => {
+  test('必須項目のみ入力して登録ボタンを押すとトップページに遷移すること', async () => {
     // 必須項目の入力
     await userEvent.type(screen.getByTestId('input-id'), 'tanaka');
     await userEvent.type(screen.getByTestId('input-name'), '田中太郎');
