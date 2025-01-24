@@ -36,12 +36,12 @@ export const Top: React.FC = memo(() => {
                   rules={{
                     required: 'IDの入力は必須です',
                   }}
-                  render={({ field }) => <Input {...field} />}
+                  render={({ field }) => <Input {...field} data-testid="input-id" />}
                 />
               </Field>
             </Card.Body>
             <Card.Footer>
-              <Button variant="solid" type="submit" colorPalette="cyan" w="full">
+              <Button variant="solid" type="submit" colorPalette="cyan" w="full" data-testid="submit-button">
                 名刺をみる
               </Button>
             </Card.Footer>

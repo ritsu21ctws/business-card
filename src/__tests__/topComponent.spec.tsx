@@ -1,5 +1,6 @@
 import App from '../App';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { MemoryRouter } from 'react-router';
 
@@ -30,5 +31,13 @@ describe('Top', () => {
   test('タイトルが表示されていること', () => {
     const title = screen.getByTestId('title');
     expect(title).toBeInTheDocument();
+  });
+
+  test('IDを入力してボタンを押すと/cards/:idに遷移すること', async () => {
+    await userEvent.type(screen.getByTestId('input-id'), 'tea');
+    const submitButton = await screen.findByTestId('submit-button');
+    await userEvent.click(submitButton);
+
+    expect(mockNavigator).toHaveBeenCalledWith('/cards/tea');
   });
 });
