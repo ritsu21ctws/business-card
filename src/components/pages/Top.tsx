@@ -20,6 +20,10 @@ export const Top: React.FC = memo(() => {
     navigate(`/cards/${data.id}`);
   });
 
+  const onClickGoToRegister = () => {
+    navigate('/cards/register');
+  };
+
   return (
     <Center my="5">
       <Stack gap="4">
@@ -47,7 +51,7 @@ export const Top: React.FC = memo(() => {
             </Card.Footer>
           </form>
         </Card.Root>
-        <Link justifyContent="center" href="cards/register" outline="none">
+        <Link justifyContent="center" onClick={onClickGoToRegister} outline="none" data-testid="register-link">
           新規登録はこちら
         </Link>
       </Stack>

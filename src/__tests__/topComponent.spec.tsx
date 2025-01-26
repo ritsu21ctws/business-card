@@ -50,4 +50,11 @@ describe('Top', () => {
       expect(errorMessage).toBeInTheDocument();
     });
   });
+
+  test('新規登録はこちらを押すと/cards/registerに遷移すること', async () => {
+    const registerLink = screen.getByTestId('register-link');
+    await userEvent.click(registerLink);
+
+    expect(mockNavigator).toHaveBeenCalledWith('/cards/register');
+  });
 });
