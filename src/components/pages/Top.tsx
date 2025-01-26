@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button, Card, Center, Heading, Input, Link, Stack } from '@chakra-ui/react';
 import { Field } from '@/components/ui/field';
 
-export const Home: React.FC = memo(() => {
+export const Top: React.FC = memo(() => {
   const {
     control,
     handleSubmit,
@@ -19,6 +19,10 @@ export const Home: React.FC = memo(() => {
   const onSubmit = handleSubmit((data) => {
     navigate(`/cards/${data.id}`);
   });
+
+  const onClickGoToRegister = () => {
+    navigate('/cards/register');
+  };
 
   return (
     <Center my="5">
@@ -36,18 +40,18 @@ export const Home: React.FC = memo(() => {
                   rules={{
                     required: 'IDの入力は必須です',
                   }}
-                  render={({ field }) => <Input {...field} />}
+                  render={({ field }) => <Input {...field} data-testid="input-id" />}
                 />
               </Field>
             </Card.Body>
             <Card.Footer>
-              <Button variant="solid" type="submit" colorPalette="cyan" w="full">
+              <Button variant="solid" type="submit" colorPalette="cyan" w="full" data-testid="submit-button">
                 名刺をみる
               </Button>
             </Card.Footer>
           </form>
         </Card.Root>
-        <Link justifyContent="center" href="cards/register" outline="none">
+        <Link justifyContent="center" onClick={onClickGoToRegister} outline="none" data-testid="register-link">
           新規登録はこちら
         </Link>
       </Stack>

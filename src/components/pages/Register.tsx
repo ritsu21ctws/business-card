@@ -59,7 +59,7 @@ export const Register: React.FC = memo(() => {
     <>
       <Center my="5">
         <Stack gap="4">
-          <Heading as="h1" textAlign="center">
+          <Heading as="h1" textAlign="center" data-testid="title">
             名刺新規登録
           </Heading>
           <Card.Root width="340px" variant="elevated">
@@ -74,7 +74,7 @@ export const Register: React.FC = memo(() => {
                         required: '好きな英単語の入力は必須です',
                         pattern: { value: /^[a-zA-Z]+$/, message: '好きな英単語は半角英字で入力してください。' },
                       }}
-                      render={({ field }) => <Input {...field} placeholder="coffee" />}
+                      render={({ field }) => <Input {...field} placeholder="coffee" data-testid="input-id" />}
                     />
                   </Field>
                   <Field label="名前 *" invalid={!!errors.name} errorText={errors.name?.message}>
@@ -84,7 +84,7 @@ export const Register: React.FC = memo(() => {
                       rules={{
                         required: '名前の入力は必須です',
                       }}
-                      render={({ field }) => <Input {...field} />}
+                      render={({ field }) => <Input {...field} data-testid="input-name" />}
                     />
                   </Field>
                   <Field label="自己紹介 *" invalid={!!errors.description} errorText={errors.description?.message}>
@@ -94,10 +94,10 @@ export const Register: React.FC = memo(() => {
                       rules={{
                         required: '自己紹介の入力は必須です',
                       }}
-                      render={({ field }) => <Textarea {...field} placeholder="<h1>HTMLタグも使えます</h1>" />}
+                      render={({ field }) => <Textarea {...field} placeholder="<h1>HTMLタグも使えます</h1>" data-testid="input-description" />}
                     />
                   </Field>
-                  <Field label="好きな技術" invalid={!!errors.skills} errorText={errors.skills?.message}>
+                  <Field label="好きな技術 *" invalid={!!errors.skills} errorText={errors.skills?.message}>
                     <Controller
                       name="skills"
                       control={control}
@@ -128,23 +128,31 @@ export const Register: React.FC = memo(() => {
                     />
                   </Field>
                   <Field label="GitHub ID">
-                    <Controller name="github_id" control={control} render={({ field }) => <Input {...field} value={field.value || ''} />} />
+                    <Controller
+                      name="github_id"
+                      control={control}
+                      render={({ field }) => <Input {...field} value={field.value || ''} data-testid="input-github-id" />}
+                    />
                   </Field>
                   <Field label="Qiita ID">
-                    <Controller name="qiita_id" control={control} render={({ field }) => <Input {...field} value={field.value || ''} />} />
+                    <Controller
+                      name="qiita_id"
+                      control={control}
+                      render={({ field }) => <Input {...field} value={field.value || ''} data-testid="input-qiita-id" />}
+                    />
                   </Field>
                   <Field label="X ID">
                     <Controller
                       name="x_id"
                       control={control}
-                      render={({ field }) => <Input {...field} value={field.value || ''} placeholder="@は不要" />}
+                      render={({ field }) => <Input {...field} value={field.value || ''} placeholder="@は不要" data-testid="input-x-id" />}
                     />
                   </Field>
                   *は必須項目です
                 </Stack>
               </Card.Body>
               <Card.Footer>
-                <Button variant="solid" type="submit" colorPalette="cyan" w="full">
+                <Button variant="solid" type="submit" colorPalette="cyan" w="full" data-testid="register-button">
                   登録
                 </Button>
               </Card.Footer>

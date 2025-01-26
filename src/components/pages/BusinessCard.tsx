@@ -34,7 +34,7 @@ export const BusinessCard: React.FC = memo(() => {
       });
   }, []);
 
-  const onClickGoBackHome = () => {
+  const onClickGoBackTop = () => {
     navigate('/');
   };
 
@@ -50,35 +50,41 @@ export const BusinessCard: React.FC = memo(() => {
             <Stack gap="5">
               <Card.Root width="340px" variant="elevated">
                 <Card.Header>
-                  <Card.Title fontSize={32}>{user?.name}</Card.Title>
+                  <Card.Title fontSize={32} data-testid="name">
+                    {user?.name}
+                  </Card.Title>
                 </Card.Header>
                 <Card.Body gap="4">
                   <DataListRoot size="lg" variant="bold">
-                    <DataListItem label="自己紹介" value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>} />
+                    <DataListItem
+                      label="自己紹介"
+                      value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>}
+                      data-testid="description"
+                    />
                   </DataListRoot>
                   <DataListRoot size="lg" variant="bold">
-                    <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} />
+                    <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} data-testid="skills" />
                   </DataListRoot>
                 </Card.Body>
                 <Card.Footer justifyContent="space-between">
                   {user?.github_url && (
                     <Link href={user?.github_url} outline="none" target="_blank" fontSize="30px">
-                      <FaGithub />
+                      <FaGithub data-testid="github-icon" />
                     </Link>
                   )}
                   {user?.qiita_url && (
                     <Link href={user?.qiita_url} outline="none" target="_blank" fontSize="30px">
-                      <SiQiita />
+                      <SiQiita data-testid="qiita-icon" />
                     </Link>
                   )}
                   {user?.x_url && (
                     <Link href={user?.x_url} outline="none" target="_blank" fontSize="30px">
-                      <FaXTwitter />
+                      <FaXTwitter data-testid="x-icon" />
                     </Link>
                   )}
                 </Card.Footer>
               </Card.Root>
-              <Button variant="solid" type="submit" colorPalette="cyan" w="full" onClick={onClickGoBackHome}>
+              <Button variant="solid" type="submit" colorPalette="cyan" w="full" onClick={onClickGoBackTop} data-testid="back-button">
                 戻る
               </Button>
             </Stack>
