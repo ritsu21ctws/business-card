@@ -1,5 +1,5 @@
 import App from '../App';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { MemoryRouter } from 'react-router';
@@ -39,5 +39,15 @@ describe('Top', () => {
     await userEvent.click(submitButton);
 
     expect(mockNavigator).toHaveBeenCalledWith('/cards/tea');
+  });
+
+  test('IDを入力しないでボタンを押すとエラーメッセージが表示されること', async () => {
+    const submitButton = await screen.findByTestId('submit-button');
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorMessage = screen.getByText('IDの入力は必須です');
+      expect(errorMessage).toBeInTheDocument();
+    });
   });
 });
