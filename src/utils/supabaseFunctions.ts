@@ -36,3 +36,11 @@ export const insertUser = async (formData: FormData): Promise<User> => {
 
   return data;
 };
+
+export const deletePreviousDayData = async () => {
+  const { data, error } = await supabase.rpc('delete_users_and_user_skill_of_previous_day');
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};
