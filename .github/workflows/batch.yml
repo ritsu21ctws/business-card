@@ -1,0 +1,17 @@
+name: Execute batch job at every 6:00 AM asia/tokyo
+on:
+  schedule:
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+jobs:
+  batch:
+    runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+      VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Execute batch
+        run: npx tsx -r dotenv/config ./batch/index.ts

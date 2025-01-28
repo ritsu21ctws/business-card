@@ -50,7 +50,7 @@ export const BusinessCard: React.FC = memo(() => {
             <Stack gap="5">
               <Card.Root width="340px" variant="elevated">
                 <Card.Header>
-                  <Card.Title fontSize={32} data-testid="name">
+                  <Card.Title fontSize={28} data-testid="name">
                     {user?.name}
                   </Card.Title>
                 </Card.Header>
