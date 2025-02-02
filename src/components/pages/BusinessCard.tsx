@@ -57,13 +57,13 @@ export const BusinessCard: React.FC = memo(() => {
                 <Card.Body gap="4">
                   <DataListRoot size="lg" variant="bold">
                     <DataListItem
-                      label="自己紹介"
+                      label="【 自己紹介 】"
                       value={<Prose dangerouslySetInnerHTML={{ __html: user?.description ?? '' }}></Prose>}
                       data-testid="description"
                     />
                   </DataListRoot>
                   <DataListRoot size="lg" variant="bold">
-                    <DataListItem label="好きな技術" value={user?.skills.map((skill) => skill.name).join(', ')} data-testid="skills" />
+                    <DataListItem label="【 好きな技術 】" value={user?.skills.map((skill) => skill.name).join(', ')} data-testid="skills" />
                   </DataListRoot>
                 </Card.Body>
                 <Card.Footer justifyContent="space-between">
